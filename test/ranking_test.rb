@@ -25,6 +25,15 @@ class RankingTest < Minitest::Test
     assert_equal [page_3, page_2, page_1], Page.ranked
   end
 
+  should 'should move to bottom with max int' do
+    page_1, page_2, page_3 = create_sample_pages
+
+    assert_equal [page_1, page_2, page_3], Page.ranked
+
+    page_1.move_to!(999)
+    assert_equal [page_2, page_3, page_1], Page.ranked
+  end
+
   should 'move to top' do
     page_1, page_2, page_3 = create_sample_pages
 

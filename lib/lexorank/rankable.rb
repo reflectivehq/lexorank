@@ -71,6 +71,8 @@ module Lexorank::Rankable
       rank =
         if self == after && self.send(self.class.ranking_column).present?
           self.send(self.class.ranking_column)
+        elsif before.nil? && after.nil?
+          value_between(collection.maximum(self.class.ranking_column), nil)
         else
           value_between(before&.send(self.class.ranking_column), after&.send(self.class.ranking_column))
         end
